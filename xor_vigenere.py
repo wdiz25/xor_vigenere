@@ -27,12 +27,6 @@ match args.command:
     case "keygen":
         print(crypto.keygen(args.length))
     case "encrypt":
-        bytes_key = bytes.fromhex(args.key)
-        bytes_text = args.text.encode("utf-8")
-        bytes_ciphertext = crypto.xor_repeating(bytes_text, bytes_key)
-        print(bytes_ciphertext.hex())
+        print(crypto.encrypt(args.text, args.key))
     case "decrypt":
-        bytes_key = bytes.fromhex(args.key)
-        bytes_ciphertext = bytes.fromhex(args.ciphertext)
-        bytes_text = crypto.xor_repeating(bytes_ciphertext, bytes_key)
-        print(bytes_text.decode("utf-8"))
+        print(crypto.decrypt(args.ciphertext, args.key))
