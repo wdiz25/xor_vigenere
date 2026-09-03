@@ -1,4 +1,5 @@
 import argparse
+import crypto
 
 # Initialize argument parser
 parser = argparse.ArgumentParser()
@@ -22,6 +23,16 @@ parser_decrypt.add_argument("--ciphertext", type=str, required=True)
 
 # Parse CLI arguments
 args = parser.parse_args()
-
-print(f"Command: {args.command}")
-print(f"Arguments: {args}")
+match args.command:
+    case "keygen":
+        print(crypto.keygen(args.length))
+    case "encrypt":
+        bytes_key = bytes.fromhex(args.key)
+        bytes_text = args.text.encode("utf-8")
+        bytes_ciphertext = crypto.xor_repeating(bytes_text, bytes_key)
+        print(bytes_ciphertext.hex())
+    case "decrypt":
+        bytes_key = bytes.fromhex(args.key)
+        bytes_ciphertext = bytes.fromhex(args.ciphertext)
+        bytes_text = crypto.xor_repeating(bytes_ciphertext, bytes_key)
+        print(bytes_text.decode("utf-8"))
