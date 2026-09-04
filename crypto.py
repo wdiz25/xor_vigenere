@@ -1,4 +1,5 @@
-import secrets, tools
+import secrets
+import tools
 
 # Implement key generation
 def keygen(length: int) -> str:
