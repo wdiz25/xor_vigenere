@@ -9,6 +9,9 @@ def hex_to_bytes(hex: str, argument: str) -> bytes:
     if argument == "Key" and not hex:
         print("Error: Key is empty", file=sys.stderr)
         sys.exit(1)
+    if len(hex) % 2 != 0:
+        print(f"Error: { argument } has an odd number of hex digits", file=sys.stderr)
+        sys.exit(1)
     if hex != hex.strip():
         print(f"Error: { argument } contains leading or trailing whitespace", file=sys.stderr)
         sys.exit(1)
