@@ -1,27 +1,27 @@
 import argparse
 import crypto
 
-# Initialize argument parser
+# initialize argument parser
 parser = argparse.ArgumentParser()
 
-# Implement command selection
+# command selection
 subparsers = parser.add_subparsers(dest="command", required=True)
 
-# Implement keygen options
+# keygen options
 parser_keygen = subparsers.add_parser("keygen")
 parser_keygen.add_argument("--length", type=int, required=True)
 
-# Implement encrypt options
+# encrypt options
 parser_encrypt = subparsers.add_parser("encrypt")
 parser_encrypt.add_argument("--key", type=str, required=True)
 parser_encrypt.add_argument("--text", type=str, required=True)
 
-# Implement decrypt options
+# decrypt options
 parser_decrypt = subparsers.add_parser("decrypt")
 parser_decrypt.add_argument("--key", type=str, required=True)
 parser_decrypt.add_argument("--ciphertext", type=str, required=True)
 
-# Parse CLI arguments
+# parse CLI arguments
 args = parser.parse_args()
 match args.command:
     case "keygen":
