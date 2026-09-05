@@ -4,14 +4,26 @@ import secrets, sys
 def xor_repeating(data: bytes, key: bytes) -> bytes:
     return bytes(a ^ b for a, b in zip(data, key * (len(data) // len(key) + 1)))
 
+# convert hex string to bytes
+def hex_to_bytes(hex: str, argument: str) -> bytes:
+    try:
+        return bytes.fromhex(hex)
+    except ValueError:
+        print(f"Error: { argument } is not valid hex", file=sys.stderr)
+        sys.exit(1)
+
+
 # key generation
 def keygen(length: int) -> str:
+    if length <= 0:
+        print("Error: Key length must be a positive integer", file=sys.stderr)
+        sys.exit(1)
     return secrets.token_hex(length)
 
 # decryption
 def decrypt(ciphertext: str, key: str) -> str:
-    bytes_key = bytes.fromhex(key)
-    bytes_ciphertext = bytes.fromhex(ciphertext)
+    bytes_key = hex_to_bytes(key, "Key")
+    bytes_ciphertext = hex_to_bytes(ciphertext, "Ciphertext")
     bytes_text = xor_repeating(bytes_ciphertext, bytes_key)
     try:
         return bytes_text.decode("utf-8")
@@ -21,7 +33,7 @@ def decrypt(ciphertext: str, key: str) -> str:
 
 # encryption
 def encrypt(text: str, key: str) -> str:
-    bytes_key = bytes.fromhex(key)
+    bytes_key = hex_to_bytes(key, "Key")
     bytes_text = text.encode("utf-8")
     bytes_ciphertext = xor_repeating(bytes_text, bytes_key)
     return bytes_ciphertext.hex()
