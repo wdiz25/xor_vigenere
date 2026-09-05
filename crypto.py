@@ -1,4 +1,4 @@
-import secrets, sys
+import re, secrets, sys
 
 # XOR with repeating key
 def xor_repeating(data: bytes, key: bytes) -> bytes:
@@ -6,11 +6,16 @@ def xor_repeating(data: bytes, key: bytes) -> bytes:
 
 # convert hex string to bytes
 def hex_to_bytes(hex: str, argument: str) -> bytes:
-    try:
-        return bytes.fromhex(hex)
-    except ValueError:
+    if argument == "Key" and not hex:
+        print("Error: Key is empty", file=sys.stderr)
+        sys.exit(1)
+    if hex != hex.strip():
+        print(f"Error: { argument } contains leading or trailing whitespace", file=sys.stderr)
+        sys.exit(1)
+    if not re.fullmatch(r"[0-9a-fA-F]*", hex):
         print(f"Error: { argument } is not valid hex", file=sys.stderr)
         sys.exit(1)
+    return bytes.fromhex(hex)
 
 
 # key generation
