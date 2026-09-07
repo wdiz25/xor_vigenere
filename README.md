@@ -47,6 +47,10 @@ python3 --version
 Depending on your setup the `pip` and `pip3` commands may also point to different versions. For assistance with `pip`, see [Getting Started](https://pip.pypa.io/en/stable/getting-started/).
 
 ## References
-The following sources were referenced throughout the course of the program's development. No generative AI tools were utilized in the development of this program.
-* https://docs.python.org/3/library/argparse.html
-* https://docs.pytest.org/en/stable/getting-started.html
+The following sources were referenced throughout the course of the program's development. Github Copilot Inline Suggestions enabled by default in VS Code provided some assistance with repetitive lines of code such as xor_vigenere.py lines 10-22.
+
+---
+
+Argparse — Parser for Command-Line Options, Arguments and Subcommands — Python 3.14.7 Documentation. https://docs.python.org/3/library/argparse.html. Accessed 2 Sept. 2026.
+
+Get Started - Pytest Documentation. https://docs.pytest.org/en/stable/getting-started.html. Accessed 4 Sept. 2026.
