@@ -2,7 +2,7 @@
 ### Author: William Disman
 
 ## 1. Correctness
-Let $m = m_0, m_1, ... \space m_{n-1} \in \mathbb{B}^*$ and $k = k_0, k_1, ... \space k_{\ell-1} \in \mathbb{B}^+$. Given $\ell > 0$ (the length of the key is greater than $0$), $i \bmod \ell$ is defined for all values where $i \geq 0$. $\mathsf{Enc}_k(m)_i = c_i = m_i \oplus k_{i \bmod \ell}$ for $0 \leq i < n$, and $\mathsf{Dec}_k(c)_i = c_i \oplus k_{i \bmod \ell}$.
+Let $m = m_0, m_1, ... \space m_{n-1} \in \mathbb{B}^*$ and $k = k_0, k_1, ... \space k_{\ell-1} \in \mathbb{B}^+$. Given $\ell > 0$ (the length of the key is greater than zero), $i \bmod \ell$ is defined for all values where $i \geq 0$. $\mathsf{Enc}_k(m)_i = c_i = m_i \oplus k_{i \bmod \ell}$ for $0 \leq i \lt n$, and $\mathsf{Dec}_k(c)_i = c_i \oplus k_{i \bmod \ell}$.
 
 Thus, for each index $i$:
 
@@ -27,7 +27,7 @@ Because of the associative and commutative properties of $\oplus$, the two copie
 ## 4. One-Time Pad Comparison
 A one-time pad requires the key to be (at least) the same length as the message so that no index is reused. Additionally, the key bytes should be chosen uniformly at random and each key should only be used once. The same key (or parts of it) should not be used for messages of the same or lesser length. Finally, in order for a one-time pad to be effective, each party must have access to the key before it is used. For example, each party may have a book of key values and start from the same index in the book. 
 
-A repeating-key XOR violates the length condition when $\ell < n$. The same byte of the key must be used more than once since the message is longer than the key. This introduces insecurities like those explored in section 2. Additionally, a repeating-key XOR may encrypt multiple messages using the same key. This is not permitted with a one-time pad. Reusing the same key can introduce vulnerabilities like those described in section 3. Depending on the implementation, uniformity and key-distribution conditions may be violated as well, but this is not inherently the case for all repeating-key XOR implementations.
+A repeating-key XOR violates the length condition when $\ell \lt n$. The same byte of the key must be used more than once since the message is longer than the key. This introduces insecurities like those explored in section 2. Additionally, a repeating-key XOR may encrypt multiple messages using the same key. This is not permitted with a one-time pad. Reusing the same key can introduce vulnerabilities like those described in section 3. Depending on the implementation, uniformity and key-distribution conditions may be violated as well, but this is not inherently the case for all repeating-key XOR implementations.
 
 ## 5. Security Limits
 A short repeating key is less effective given the analysis in section 2. If an attacker uses prior knowledge of the byte-distributions of natural-language English text, the attacker can use brute-force attacks as detailed in Lecture 2. With a shorter key, the number of times the key is repeated is increased. For example, a 2 byte key encrypting a 32 byte message means that the same byte is used 16 times. Thus, a single known plaintext byte automatically reveals every other word in plaintext. If a key is repeated more than a few times, the confidentiality of the ciphertext begins to reduce exponentially. Thus, a repeating-key XOR where $n \gg \ell$ loses confidentiality.
